@@ -26,7 +26,7 @@ const PersonForm = () => {
         else if ( surname.length > 30 ) newErrors.surname = 'name is too long!';
         // id number errors
         if ( !idNumber || idNumber === '' ) newErrors.idNumber = 'cannot be empty!';
-        else if ( idNumber?.length !== 13 ) newErrors.idNumber = 'Insert a valid 13 digit SA ID no.';
+        else if ( idNumber.length !== 13 ) newErrors.idNumber = 'Insert a valid 13 digit SA ID no.';
 
         if ( !dateOfBirth || dateOfBirth === '' ) newErrors.dateOfBirth = 'cannot be empty!';
     
@@ -39,6 +39,7 @@ const PersonForm = () => {
         if ( Object.keys(newErrors).length > 0 ) {
           setErrors(newErrors);
         } else {
+            setErrors({});
             addPerson();
         }
     }
