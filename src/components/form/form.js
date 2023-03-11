@@ -1,8 +1,9 @@
-import React, { useState } from "react";
 import { collection, addDoc, where, getDocs, query } from "firebase/firestore";
+import React, { useState } from "react";
 import { Form, Button } from "react-bootstrap";
 import DatePicker from 'react-datepicker';
 import { db } from "../../firebase";
+import { v4 as uuidv4 } from 'uuid';
 
 const PersonForm = () => {
     const [ form, setForm ] = useState({});
@@ -46,6 +47,7 @@ const PersonForm = () => {
 
     const addPerson = async () => {
         const personObj = {
+            id:uuidv4(),
             name: form.name,
             surname: form.surname,
             idNumber: form.idNumber,
