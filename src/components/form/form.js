@@ -1,9 +1,8 @@
-import { collection, addDoc, where, getDocs, query } from "firebase/firestore";
 import React, { useState } from "react";
 import { Form, Button } from "react-bootstrap";
 import DatePicker from 'react-datepicker';
-import { db } from "../../firebase";
 import { v4 as uuidv4 } from 'uuid';
+import backend from "../../backend/backend";
 
 const PersonForm = () => {
     const [ form, setForm ] = useState({});
@@ -54,20 +53,11 @@ const PersonForm = () => {
             dateOfBirth: form.dateOfBirth,
             dateCreated: new Date()
         }
-        try {
-            const q = query(collection(db, "persons"), where("person.idNumber", "==", personObj.idNumber));
-            const querySnapshot = await getDocs(q);
-            if (querySnapshot.empty) {
-                addDoc(collection(db, "persons"), {
-                    person: personObj
-                  }).then(()=>alert("saved successfully"));
-                } else {
-                    alert('id number already exist in our system');
-                    
-            }
-        } catch (e) {
-            console.error("Error adding document: ", e);
-        }
+
+        let response = await backend.addPersonToDb(personObj);
+    
+        alert(response);
+        
     }
 
     const clear = (e) => {
