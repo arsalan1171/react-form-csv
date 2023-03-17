@@ -2,10 +2,11 @@ import { collection, addDoc, where, getDocs, query } from "firebase/firestore";
 import {db} from './firebase';
 
 async function addPersonToDb(personObj){
-    const q = query(collection(db, "persons"), where("person.idNumber", "==", personObj.idNumber));
-    const querySnapshot = await getDocs(q);
+    
     let responseMsg='';   
     try {
+        const q = query(collection(db, "persons"), where("person.idNumber", "==", personObj.idNumber));
+        const querySnapshot = await getDocs(q);
         if (querySnapshot.empty) {
             addDoc(collection(db, "persons"), {
                 person: personObj
